@@ -1,5 +1,74 @@
-:root{
-  margin: none;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.draw-button {
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.map-container {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ddd;
+}
+
+.coordinate-list {
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 90%;
+  max-width: 600px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.coordinate-list h3 {
+  margin: 0 0 10px;
+}
+
+.coordinate-list ul {
+  list-style: none;
   padding: 0;
-  box-sizing: border-box;
+  margin: 0;
+}
+
+.coordinate-list li {
+  padding: 5px 0;
+}
+
+.coordinate-list-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 1000;
+  max-width: 300px;
+  /* margin: 2px solid red; */
+}
+
+.coordinate-list-overlay h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.coordinate-list-overlay ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coordinate-list-overlay li {
+  font-size: 12px;
+  padding: 2px 0;
 }
