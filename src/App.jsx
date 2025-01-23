@@ -5,14 +5,16 @@ import "./App.css";
 
 function App() {
   const [isDrawing, setIsDrawing] = useState(false);
+  const [drawType, setDrawType] = useState("LineString");
   const [coordinates, setCoordinates] = useState([]);
   const [modalContent, setModalContent] = useState(null);
 
-  const startDrawing = () => {
+  const startDrawing = (type) => {
     setIsDrawing(true);
+    setDrawType(type);
     setModalContent({
       type: "initial",
-      message: "Start drawing on the map! Press Enter to finish.",
+      message: `Start drawing a ${type.toLowerCase()} on the map! Press Enter to finish.`,
     });
   };
 
@@ -20,17 +22,14 @@ function App() {
     setIsDrawing(false);
     setCoordinates(newCoordinates);
     setModalContent({
-      type: "linestring",
+      type: drawType.toLowerCase(),
       data: newCoordinates,
     });
   };
 
   return (
     <div className="App">
-      <button onClick={startDrawing} className="draw-button">
-        Draw on the Map
-      </button>
-      <MapComponent isDrawing={isDrawing} onStopDrawing={stopDrawing} />
+      <MapComponent isDrawing={isDrawing} drawType={drawType} onStopDrawing={stopDrawing} />
       {modalContent && (
         <Modal content={modalContent} onClose={() => setModalContent(null)} />
       )}

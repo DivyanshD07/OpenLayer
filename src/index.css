@@ -54,7 +54,6 @@ body {
   border-radius: 4px;
   z-index: 1000;
   max-width: 300px;
-  /* margin: 2px solid red; */
 }
 
 .coordinate-list-overlay h3 {
