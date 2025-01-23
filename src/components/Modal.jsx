@@ -5,8 +5,9 @@ function Modal({ content, onClose }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        {content.type === "initial" && <p>{content.message}</p>}
-        {(content.type === "linestring" || content.type === "polygon") && (
+        {content.type === "initial" ? (
+          <p>{content.message}</p>
+        ) : (
           <ul>
             {content.data.map((coord, index) => (
               <li key={index}>{`WP(${index + 1}): ${coord.join(", ")}`}</li>

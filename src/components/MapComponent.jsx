@@ -8,7 +8,7 @@ import VectorLayer from "ol/layer/Vector";
 import { Draw } from "ol/interaction";
 import "ol/ol.css";
 
-const MapComponent = () => {
+const MapComponent = ({ setModalContent }) => {
   const mapRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
   const [drawingData, setDrawingData] = useState({});
@@ -16,6 +16,7 @@ const MapComponent = () => {
   const [polygonCount, setPolygonCount] = useState(0);
   const [currentDrawingType, setCurrentDrawingType] = useState(null);
   const drawInteractionRef = useRef(null);
+  const [isDrawingComplete, setIsDrawingComplete] = useState(false);
 
   useEffect(() => {
     const vectorSource = new VectorSource();
@@ -54,9 +55,17 @@ const MapComponent = () => {
       geometry.on("change", () => {
         const coordinates = geometry.getCoordinates();
         if (type === "LineString") {
+          // setModalContent({
+          //   type: type.toLowerCase(),
+          //   data: coordinates.map(coord => [coord[0].toFixed(2), coord[1].toFixed(2)]),
+          // })
           const key = `linestring${lineCount + 1}`;
           setDrawingData((prev) => ({ ...prev, [key]: coordinates }));
         } else if (type === "Polygon") {
+          // setModalContent({
+          //   type: type.toLowerCase(),
+          //   data: coordinates.map(coord => [coord[0].toFixed(2), coord[1].toFixed(2)]),
+          // })
           const key = `polygon${polygonCount + 1}`;
           setDrawingData((prev) => ({ ...prev, [key]: coordinates[0] })); // Outer ring of the polygon
         }
@@ -72,6 +81,7 @@ const MapComponent = () => {
       map.removeInteraction(drawInteraction);
       drawInteractionRef.current = null;
       setCurrentDrawingType(null);
+      setIsDrawingComplete(true);
     });
   };
 
@@ -90,6 +100,8 @@ const MapComponent = () => {
       window.removeEventListener("keypress", handleKeyPress);
     };
   }, [mapInstance]);
+
+
 
   return (
     <div style={{ position: "relative" }}>
@@ -111,7 +123,7 @@ const MapComponent = () => {
               <ul>
                 {coordinates.map((coord, i) => (
                   <li key={i}>
-                    [{coord[0].toFixed(2)}, {coord[1].toFixed(2)}]
+                    {`WP(${i + 1}): [${coord[0].toFixed(2)}, ${coord[1].toFixed(2)}]`}
                   </li>
                 ))}
               </ul>
